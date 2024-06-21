@@ -211,6 +211,7 @@ function createItemKindToIdMap(): ItemKindToIdMap {
   setEquips("棍", 1003);
   setEquips("拳", 1004);
   setEquips("突剣", 1005);
+  setEquips("槍", 1006);
   setEquips("ロッド", 1007);
   setEquips("弓", 2001);
   setEquips("銃", 2002);
