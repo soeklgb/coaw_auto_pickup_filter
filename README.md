@@ -5,7 +5,7 @@
 ## 導入
 
 このModを使うには[maginai](https://github.com/Spoonail-Iroiro/maginai)の導入が必要です。
-maginaiを導入したらReleaseページからModをダウンロードしてmaginaiの使い方に従ってゲームにModを追加してください。
+maginaiを導入したら[Releaseページ](https://github.com/soeklgb/coaw_auto_pickup_filter/releases)からModをダウンロードしてmaginaiの使い方に従ってゲームにModを追加してください。
 
 ## 使い方
 
