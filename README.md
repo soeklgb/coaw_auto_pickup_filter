@@ -5,11 +5,13 @@
 ## 導入
 
 このModを使うには[maginai](https://github.com/Spoonail-Iroiro/maginai)の導入が必要です。
+
 maginaiを導入したら[Releaseページ](https://github.com/soeklgb/coaw_auto_pickup_filter/releases)からModをダウンロードしてmaginaiの使い方に従ってゲームにModを追加してください。
 
 ## 使い方
 
 異世界の創造者のセーブデータがあるフォルダに`auto_pickup_filter.js`を作成して設定を書き込みます。
+
 Windowsの場合、拡張子を表示する設定にしてからファイルを作成してください。
 
 ```js
