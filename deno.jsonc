@@ -1,0 +1,26 @@
+{
+  "tasks": {
+    // Build the mod in the mods directory of the Steam version of CoAW.
+    "dev": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run tasks/dev.ts",
+    // Build the mod as zip file in `./dist`.
+    "build": "deno run --allow-read --allow-write --allow-net --allow-env --allow-run tasks/build.ts"
+  },
+  "imports": {
+    "@luca/esbuild-deno-loader": "jsr:@luca/esbuild-deno-loader@^0.10.3",
+    "@std/fs": "jsr:@std/fs@^0.229.1",
+    "@std/path": "jsr:@std/path@^0.225.2",
+    "esbuild": "npm:esbuild@^0.20.2",
+    "maginai": "npm:maginai@^0.7.1",
+    "maginai-game-types": "npm:maginai-game-types@^4.4.0",
+    "zip": "https://deno.land/x/zip@v1.2.5/mod.ts"
+  },
+  "fmt": {
+    "exclude": [
+      "./**/*.md"
+    ]
+  },
+  "exclude": [
+    "dist/",
+    "docs/"
+  ]
+}
