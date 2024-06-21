@@ -96,18 +96,21 @@ class AutoPickupFilter {
 
             if (tWgm.tGameItem.getEnableGroupItem(item) === 1) {
               let num = 0;
+              let noroi = false;
               for (const inventoryItem of player.items) {
-                if (
-                  tWgm.tGameItem.checkCompileItem(item, inventoryItem)
-                ) {
+                if (tWgm.tGameItem.checkCompileItem(item, inventoryItem)) {
                   num = inventoryItem[10];
+                  noroi = inventoryItem[14] !== 0;
                   break;
-                } else {
-                  continue;
                 }
               }
+
               const desired = Math.max(0, filter - num);
-              args[0].num = Math.min(args[0].num, desired);
+              if (!noroi && 0 < desired) {
+                args[0].num = 0;
+              } else {
+                args[0].num = Math.min(args[0].num, desired);
+              }
             }
 
             return true;
