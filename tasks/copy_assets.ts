@@ -1,5 +1,5 @@
 async function copyAssets(modPath: string) {
-  await Deno.copyFile("./assets/README.md", `${modPath}/README.md`);
+  await Deno.copyFile("./README.md", `${modPath}/README.md`);
 }
 
 export { copyAssets };
