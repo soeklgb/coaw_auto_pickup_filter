@@ -65,6 +65,7 @@ class AutoPickupFilter {
             const itemId = item[1].toString();
             const kantei = item[2] === 2;
             const isSkillBook = item[0] === 19;
+            const isCursed = item[14] !== 0;
 
             const filter = (() => {
               if (kantei) {
@@ -95,22 +96,39 @@ class AutoPickupFilter {
             const player = args[0].charactor;
 
             if (tWgm.tGameItem.getEnableGroupItem(item) === 1) {
-              let num = 0;
-              let noroi = false;
+              let nonCursedItemNum = 0;
+              let cursedItemNum = 0;
+              const nonCursedItem = structuredClone(item);
+              const cursedItem = structuredClone(item);
+              nonCursedItem[14] = 0;
+              cursedItem[14] = 1;
+
               for (const inventoryItem of player.items) {
-                if (tWgm.tGameItem.checkCompileItem(item, inventoryItem)) {
-                  num = inventoryItem[10];
-                  noroi = inventoryItem[14] !== 0;
-                  break;
+                if (
+                  tWgm.tGameItem.checkCompileItem(nonCursedItem, inventoryItem)
+                ) {
+                  nonCursedItemNum += inventoryItem[10];
+                }
+                if (
+                  tWgm.tGameItem.checkCompileItem(cursedItem, inventoryItem)
+                ) {
+                  cursedItemNum += inventoryItem[10];
                 }
               }
 
-              const desired = Math.max(0, filter - num);
-              if (!noroi && 0 < desired) {
-                args[0].num = 0;
+              let desired = 0;
+              if (!isCursed) {
+                desired = Math.max(
+                  0,
+                  filter - nonCursedItemNum,
+                );
               } else {
-                args[0].num = Math.min(args[0].num, desired);
+                desired = Math.max(
+                  0,
+                  filter - (nonCursedItemNum + cursedItemNum),
+                );
               }
+              args[0].num = Math.min(args[0].num, desired);
             }
 
             return true;
