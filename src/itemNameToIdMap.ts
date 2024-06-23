@@ -1,6 +1,8 @@
 type ItemNameToIdMap = Map<string, string[]>;
 
-function createItemNameToIdMap(): ItemNameToIdMap {
+function createItemNameToIdMap(): ItemNameToIdMap | undefined {
+  if (tWgm.version === undefined) return undefined;
+
   const map = new Map<string, string[]>();
 
   const items = tWgm.tGameItem.masterData.items;

@@ -7,8 +7,7 @@ import {
   isSkillBookNameWithoutLevel,
   removeLevelFromSkillBookName,
 } from "./utils.ts";
-
-const logger = maginai.logging.getLogger("auto-pickup-filter");
+import { logger } from "./logger.ts";
 
 class AutoPickupFilter {
   private kanteiFilter: Map<string, number>;
@@ -39,8 +38,15 @@ class AutoPickupFilter {
     );
 
     maginai.events.gameLoadFinished.addHandler(() => {
-      this.itemKindToIdMap = createItemKindToIdMap();
-      this.itemNameToIdMap = createItemNameToIdMap();
+      const itemKindToIdMap = createItemKindToIdMap();
+      if (itemKindToIdMap !== undefined) {
+        this.itemKindToIdMap = itemKindToIdMap;
+      }
+
+      const itemNameToIdMap = createItemNameToIdMap();
+      if (itemNameToIdMap !== undefined) {
+        this.itemNameToIdMap = itemNameToIdMap;
+      }
     });
 
     let duringPlayerAutoFootPickupItem = false;

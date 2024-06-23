@@ -1,6 +1,8 @@
 type ItemKindToIdMap = Map<string, string[]>;
 
-function createItemKindToIdMap(): ItemKindToIdMap {
+function createItemKindToIdMap(): ItemKindToIdMap | undefined {
+  if (tWgm.version === undefined) return undefined;
+
   const map = new Map<string, string[]>();
 
   const setItem = (kind: string, min: number, max: number) => {
