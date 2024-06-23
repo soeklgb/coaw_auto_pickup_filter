@@ -40,5 +40,5 @@ function parseLine(line: string): PickupFilterRule | undefined {
   return { prefix, value };
 }
 
-export { parse };
+export { parse, parseLine };
 export type { PickupFilterRule, Prefix };
