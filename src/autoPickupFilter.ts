@@ -8,6 +8,7 @@ import {
   removeLevelFromSkillBookName,
 } from "./utils.ts";
 import { logger } from "./logger.ts";
+import { getText } from "./language.ts";
 
 class AutoPickupFilter {
   private kanteiFilter: Map<string, number>;
@@ -33,10 +34,6 @@ class AutoPickupFilter {
   }
 
   init(): void {
-    logger.info(
-      "自動拾いフィルターの読み込みに失敗するエラーが表示されることがありますが、問題ありません。",
-    );
-
     maginai.events.gameLoadFinished.addHandler(() => {
       const itemKindToIdMap = createItemKindToIdMap();
       if (itemKindToIdMap !== undefined) {
@@ -178,15 +175,23 @@ class AutoPickupFilter {
           // ローカルデータが存在しない
           if (await existsIncorrectLocalData(saveNumber)) {
             tWgm.tGameLog.addLog(
-              `%c[logdamage][自動拾いフィルター]`,
+              getText("exists_incorrect_local_data.0"),
               false,
             );
             tWgm.tGameLog.addLog(
-              `%c[logdamage]auto_pickup_filter${saveNumber}.jsが存在します。`,
+              tWgm.tGameTalkResource.convertValue(
+                getText("exists_incorrect_local_data.1"),
+                [saveNumber],
+                undefined,
+              ),
               false,
             );
             tWgm.tGameLog.addLog(
-              `%c[logdamage]正しくはauto_pickup_filter_${saveNumber}.jsです。`,
+              tWgm.tGameTalkResource.convertValue(
+                getText("exists_incorrect_local_data.2"),
+                [saveNumber],
+                undefined,
+              ),
               false,
             );
           }
@@ -218,7 +223,8 @@ class AutoPickupFilter {
             this.askillBookFilter.set(rule.value, 1);
           } else {
             if (
-              rule.value === "スキル書" || rule.value === "すべて"
+              rule.value === getText("kind.skill_book") ||
+              rule.value === getText("kind.all")
             ) {
               this.askillBookFilter.clear();
             }
@@ -237,7 +243,8 @@ class AutoPickupFilter {
             this.askillBookFilter.set(rule.value, rule.prefix);
           } else {
             if (
-              rule.value === "スキル書" || rule.value === "すべて"
+              rule.value === getText("kind.skill_book") ||
+              rule.value === getText("kind.all")
             ) {
               this.askillBookFilter.clear();
             }
