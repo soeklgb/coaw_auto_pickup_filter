@@ -1,6 +1,68 @@
 import { assertEquals } from "@std/assert";
 import * as parser from "./parser.ts";
+import {
+  extractSkillNameFromSkillBookName_en,
+  extractSkillNameFromSkillBookName_ja,
+} from "./utils.ts";
 import * as _maginai_game_types from "maginai-game-types";
+
+Deno.test({
+  name: "extractSkillNameFromSkillBookName_ja",
+  fn: () => {
+    // string
+    assertEquals(
+      extractSkillNameFromSkillBookName_ja("Aのスキル書"),
+      "A",
+    );
+    assertEquals(
+      extractSkillNameFromSkillBookName_ja("Abcのスキル書"),
+      "Abc",
+    );
+
+    // undefined
+    assertEquals(
+      extractSkillNameFromSkillBookName_ja("Bのスキル書(Lv1.2)"),
+      undefined,
+    );
+    assertEquals(
+      extractSkillNameFromSkillBookName_ja("C"),
+      undefined,
+    );
+    assertEquals(
+      extractSkillNameFromSkillBookName_ja("のスキル書"),
+      undefined,
+    );
+  },
+});
+
+Deno.test({
+  name: "extractSkillNameFromSkillBookName_en",
+  fn: () => {
+    // string
+    assertEquals(
+      extractSkillNameFromSkillBookName_en("A Skill Book"),
+      "A",
+    );
+    assertEquals(
+      extractSkillNameFromSkillBookName_en("Abc Skill Book"),
+      "Abc",
+    );
+
+    // undefined
+    assertEquals(
+      extractSkillNameFromSkillBookName_en("B Skill Book (Lv1.2)"),
+      undefined,
+    );
+    assertEquals(
+      extractSkillNameFromSkillBookName_en("C"),
+      undefined,
+    );
+    assertEquals(
+      extractSkillNameFromSkillBookName_en("Skill Book"),
+      undefined,
+    );
+  },
+});
 
 Deno.test({
   name: "parser.parse",

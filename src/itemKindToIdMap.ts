@@ -8,34 +8,37 @@ function createItemKindToIdMap(): ItemKindToIdMap | undefined {
   const map = new Map<string, string[]>();
 
   const setItem = (kind: string, min: number, max: number) => {
-    const names = [];
+    const pickupIds = [];
     for (let i = min; i <= max; i++) {
       const item = tWgm.tGameItem.masterData.items[i];
       if (item === undefined) continue;
-      names.push(i.toString());
+      const itemId = i.toString();
+      pickupIds.push(itemId);
     }
-    map.set(kind, names);
+    map.set(kind, pickupIds);
   };
   const setItem2 = (kind: string, ranges: [number, number][]) => {
-    const names = [];
+    const pickupIds = [];
     for (const [min, max] of ranges) {
       for (let i = min; i <= max; i++) {
         const item = tWgm.tGameItem.masterData.items[i];
         if (item === undefined) continue;
-        names.push(i.toString());
+        const itemId = i.toString();
+        pickupIds.push(itemId);
       }
     }
-    map.set(kind, names);
+    map.set(kind, pickupIds);
   };
 
   const setEtcItem = (kind: string, min: number, max: number) => {
-    const names = [];
+    const pickupIds = [];
     for (let i = min; i <= max; i++) {
       const item = tWgm.tGameItem.masterData.etcitems[i];
       if (item === undefined) continue;
-      names.push(i.toString());
+      const itemId = i.toString();
+      pickupIds.push(itemId);
     }
-    map.set(kind, names);
+    map.set(kind, pickupIds);
   };
 
   const setEquips = (
@@ -43,38 +46,48 @@ function createItemKindToIdMap(): ItemKindToIdMap | undefined {
     category: number | number[],
   ) => {
     if (Array.isArray(category)) {
-      const names = [];
+      const pickupIds = [];
       for (const c of category) {
         const items = tWgm.tGameItem.masterData.equips[c];
         for (const itemId in items) {
-          names.push(itemId);
+          pickupIds.push(itemId);
         }
       }
-      map.set(kind, names);
+      map.set(kind, pickupIds);
     } else {
-      const names = [];
+      const pickupIds = [];
       const items = tWgm.tGameItem.masterData.equips[category];
       for (const itemId in items) {
-        names.push(itemId);
+        pickupIds.push(itemId);
       }
-      map.set(kind, names);
+      map.set(kind, pickupIds);
     }
   };
 
   {
-    const names = [];
-    for (const itemId in tWgm.tGameItem.masterData.items) {
-      names.push(itemId);
+    const pickupIds = [];
+
+    const items = tWgm.tGameItem.masterData.items;
+    const etcitems = tWgm.tGameItem.masterData.etcitems;
+    const askills = tWgm.tGameSkillAction.askillData.askills;
+    const equips = tWgm.tGameItem.masterData.equips;
+
+    for (const itemId in items) {
+      pickupIds.push(itemId);
     }
-    for (const itemId in tWgm.tGameItem.masterData.etcitems) {
-      names.push(itemId);
+    for (const itemId in etcitems) {
+      pickupIds.push(itemId);
     }
-    for (const category in tWgm.tGameItem.masterData.equips) {
-      for (const itemId in tWgm.tGameItem.masterData.equips[category]) {
-        names.push(itemId);
+    for (const skillId in askills) {
+      pickupIds.push("140001:" + skillId);
+    }
+    for (const category in equips) {
+      for (const itemId in equips[category]) {
+        pickupIds.push(itemId);
       }
     }
-    map.set(getText("kind.all"), names);
+
+    map.set(getText("kind.all"), pickupIds);
   }
 
   setItem2(getText("kind.drug"), [
@@ -112,7 +125,18 @@ function createItemKindToIdMap(): ItemKindToIdMap | undefined {
   setEtcItem(getText("kind.fish"), 120117, 120136);
   setEtcItem(getText("kind.meat"), 120200, 120203);
   setEtcItem(getText("kind.seasoning"), 130001, 130006);
-  setEtcItem(getText("kind.skill_book"), 140001, 140001);
+
+  {
+    const pickupIds = [];
+
+    const askills = tWgm.tGameSkillAction.askillData.askills;
+    for (const skillId in askills) {
+      pickupIds.push("140001:" + skillId);
+    }
+
+    map.set(getText("kind.skill_book"), pickupIds);
+  }
+
   setEtcItem(getText("kind.criminal_items"), 200001, 200025);
   setEtcItem(getText("kind.fishing_rod"), 200111, 200113);
   setEtcItem(getText("kind.banner"), 200201, 200208);

@@ -1,32 +1,34 @@
 import { language } from "./language.ts";
 
-function isSkillBookNameWithoutLevel(name: string): boolean {
+function extractSkillNameFromSkillBookName(name: string): string | undefined {
   switch (language()) {
     case "ja":
-      return /.+のスキル書$/.test(name);
+      return extractSkillNameFromSkillBookName_ja(name);
     case "krai":
-      return /.+Skill Book$/.test(name);
+      return extractSkillNameFromSkillBookName_en(name);
     default:
-      return false;
-  }
-}
-
-function removeLevelFromSkillBookName(name: string): string | undefined {
-  switch (language()) {
-    case "ja": {
-      const result = /(.+のスキル書)\(Lv\d+(\.\d)?\)$/.exec(name);
-      if (result === null) return undefined;
-      return result[1];
-    }
-    case "krai": {
-      const result = /(.+Skill Book) \(Lv\d+(\.\d)?\)$/.exec(name);
-      if (result === null) return undefined;
-      return result[1];
-    }
-    default: {
       return undefined;
-    }
   }
 }
 
-export { isSkillBookNameWithoutLevel, removeLevelFromSkillBookName };
+function extractSkillNameFromSkillBookName_ja(
+  name: string,
+): string | undefined {
+  const result = /(.+)のスキル書$/.exec(name);
+  if (result === null) return undefined;
+  return result[1];
+}
+
+function extractSkillNameFromSkillBookName_en(
+  name: string,
+): string | undefined {
+  const result = /(.+) Skill Book$/.exec(name);
+  if (result === null) return undefined;
+  return result[1];
+}
+
+export {
+  extractSkillNameFromSkillBookName,
+  extractSkillNameFromSkillBookName_en,
+  extractSkillNameFromSkillBookName_ja,
+};
