@@ -2,19 +2,30 @@
 
 [English](./README_en.md) | [日本語](./README.md)
 
+[![GitHub Release](https://img.shields.io/github/v/release/soeklgb/coaw_auto_pickup_filter)](https://github.com/soeklgb/coaw_auto_pickup_filter/releases/latest)
+[![GitHub License](https://img.shields.io/github/license/soeklgb/coaw_auto_pickup_filter)](https://github.com/soeklgb/coaw_auto_pickup_filter/blob/main/LICENSE)
+
 This is a mod that allows you to set filters for the auto-pickup feature of the Creator of Another World.
+By setting filters, you can customize the types and quantities of items to be picked up according to your preferences.
 
 ## Install
 
 To use this mod, you need to install [maginai](https://github.com/Spoonail-Iroiro/maginai) first.
 
-After installing maginai, download the mod from the [Release page](https://github.com/soeklgb/coaw_auto_pickup_filter/releases) and add it to the game following the instructions for using maginai.
+After installing maginai, download the mod from the [Release page](https://github.com/soeklgb/coaw_auto_pickup_filter/releases/latest) and add it to the game following the instructions for using maginai.
 
-## How to Use
+## Configuration file
 
 Create a file named auto_pickup_filter.js in the folder containing the save data for Creator of Another World, and write your settings in it.
 
+- For the Steam version, create an `auto_pickup_filter.js` file in the `save` folder. You can access this folder by clicking on the `⚙️ (gear icon)` on the Creator of Another World's Steam library page, then selecting `Manage → Browse local files`.
+- For the DLsite version, create an `auto_pickup_filter.js` file in the `save` folder located in the same directory as the `Game.exe` file.
+
 For Windows users, please ensure that file extensions are visible before creating the file.
+
+The `auto_pickup_filter.js` file is loaded when the game starts. If you make changes to `auto_pickup_filter.js` while the game is running, you'll need to restart the game for the new settings to take effect.
+
+## How to Use
 
 ```js
 LOADDATA = `
@@ -38,8 +49,6 @@ LOADDATA = `
 4 Healing meds
 `;
 ```
-
-`auto_pickup_filter.js` is loaded when the game starts.
 
 ## Settings for Individual Save Data
 
@@ -118,3 +127,7 @@ Footwear
 Leg armor
 Accessory
 ```
+
+## Contact
+
+If you encounter any problems or have questions, please create a new [Issue](https://github.com/soeklgb/coaw_auto_pickup_filter/issues) in this repository.
