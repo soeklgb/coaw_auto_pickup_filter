@@ -196,6 +196,8 @@ class AutoPickupFilter {
           this.localData = await loadLocalData(saveNumber);
         } catch (_error) {
           // ローカルデータが存在しない
+
+          this.localData = "";
           if (await existsIncorrectLocalData(saveNumber)) {
             tWgm.tGameLog.addLog(
               getText("exists_incorrect_local_data.0"),
